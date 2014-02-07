@@ -1,4 +1,7 @@
+![Screenshot](/screenshots/Screen Shot 2014-02-06 at 10.12.00 PM.png "Screenshot")
+
 JavaScript Isometric Grid View Generator
+
 
 Author: Donald Jones
 
