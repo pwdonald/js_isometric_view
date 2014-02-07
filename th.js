@@ -1,5 +1,6 @@
 var tilesize = 32;
 var grid = false;
+var randomMap = true;
 
 window.onload = function() {
 	var sf = document.getElementById('surface');
@@ -7,7 +8,7 @@ window.onload = function() {
 	context.translate(sf.width / 2, sf.height /4);
 	context.scale(1,0.5);
 	context.rotate(45 * Math.PI / 180);
-	var newmap = new map("test",15,15);
+	var newmap = new map("test",15,15, randomMap);
 	newmap.generate();
 	newmap.draw();
 };
@@ -55,6 +56,10 @@ function drawTile(tile)
 	if (tile.z > 50)
 	{
 		ctx.fillStyle = 'gray';
+	}
+	if (tile.z > 100)
+	{
+		ctx.fillStyle = 'white';
 	}
 	ctx.fill();
 	ctx.strokeStyle = ctx.fillStyle;

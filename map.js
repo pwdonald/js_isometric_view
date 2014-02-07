@@ -5,11 +5,16 @@ var tile = function(x, y,z, type){
 	this.type = type;
 };
 
-var map = function(name, width, height){
+var map = function(name, width, height, randomMap){
 	this.name = name;
 	this.width = width;
 	this.height = height;
 	this.tiles = [];
+	if (typeof random == 'undefined'){
+		this.random = true;
+	} else {
+		this.random = random;
+	}
 
 	this.generate = function (){
 		for (var i=0; i < this.height; i++)
@@ -18,8 +23,11 @@ var map = function(name, width, height){
 			var t_type = 'grass';
 			for (var j=0; j < this.width; j++)
 			{
-				//var tmp = new tile(j,i,Math.floor((Math.random()*128)+1),t_type);
-				var tmp = new tile(j,i,10,t_type);
+				var tmp = new tile(j,i,Math.floor((Math.random()*128)+1),t_type);
+				if (!this.random) {
+					tmp = new tile(j,i,10,t_type);
+				} 	
+				 
 				if (t_type == 'grass')
 				{
 					 t_type = 'rock';
