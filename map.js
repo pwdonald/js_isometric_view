@@ -9,12 +9,8 @@ var map = function(name, width, height, randomMap){
 	this.name = name;
 	this.width = width;
 	this.height = height;
+	this.random = randomMap;
 	this.tiles = [];
-	if (typeof random == 'undefined'){
-		this.random = true;
-	} else {
-		this.random = random;
-	}
 
 	this.generate = function (){
 		for (var i=0; i < this.height; i++)
@@ -25,7 +21,7 @@ var map = function(name, width, height, randomMap){
 			{
 				var tmp = new tile(j,i,Math.floor((Math.random()*128)+1),t_type);
 				if (!this.random) {
-					tmp = new tile(j,i,10,t_type);
+					tmp = new tile(j,i,40,t_type);
 				} 	
 				 
 				if (t_type == 'grass')

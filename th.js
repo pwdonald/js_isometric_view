@@ -1,4 +1,4 @@
-var tilesize = 32;
+var tilesize = 5;
 var grid = false;
 var randomMap = true;
 
@@ -8,7 +8,7 @@ window.onload = function() {
 	context.translate(sf.width / 2, sf.height /4);
 	context.scale(1,0.5);
 	context.rotate(45 * Math.PI / 180);
-	var newmap = new map("test",15,15, randomMap);
+	var newmap = new map("test",150,150, randomMap);
 	newmap.generate();
 	newmap.draw();
 };
@@ -21,7 +21,7 @@ function drawLine(startx, starty, length, color)
 	var ctx = canvas.getContext('2d');
 	ctx.beginPath();
 	ctx.moveTo((startx * tilesize), (starty * tilesize));
-	ctx.lineTo(endx, endy);
+	ctx.lineTo(Math.floor(endx), Math.floor(endy));
 	if (grid === true)
 	{
 		ctx.strokeStyle = color;
@@ -29,7 +29,7 @@ function drawLine(startx, starty, length, color)
 		ctx.stroke();
 	}
 	ctx.closePath();
-	return {x: endx, y: endy, start_x: startx * tilesize, start_y: starty * tilesize};
+	return {x: Math.floor(endx), y: Math.floor(endy), start_x: startx * tilesize, start_y: starty * tilesize};
 }
 
 function drawTile(tile)
@@ -37,34 +37,14 @@ function drawTile(tile)
 	var end1 = drawLine(tile.x,tile.y,tile.z, 'red');
 	var end2 = drawLine(tile.x + 1,tile.y, tile.z, 'purple');
 	var end3 = drawLine(tile.x,tile.y+1, tile.z, 'white');
-	var end4 = drawLine(tile.x +1,tile.y + 1, tile.z, 'black');
+	var end4 = drawLine(tile.x+1,tile.y+1, tile.z, 'black');
 
 	var canvas = document.getElementById('surface');
 	var ctx = canvas.getContext('2d');
-	ctx.beginPath();
-	ctx.moveTo(end1.x, end1.y);
-	ctx.lineTo(end2.x, end2.y);
-	ctx.lineTo(end4.x, end4.y);
-	ctx.lineTo(end3.x, end3.y);
-	ctx.lineTo(end1.x, end1.y);
-	ctx.closePath();
-	ctx.fillStyle = 'green';
-	if (tile.z < 3)
-	{
-		ctx.fillStyle = 'blue';
-	}
-	if (tile.z > 50)
-	{
-		ctx.fillStyle = 'gray';
-	}
-	if (tile.z > 100)
-	{
-		ctx.fillStyle = 'white';
-	}
-	ctx.fill();
+
 	ctx.strokeStyle = ctx.fillStyle;
-	ctx.lineWidth = 2.5;
-	ctx.stroke();
+	ctx.lineWidth = 0;
+	//ctx.stroke();
 	if (grid === true)
 	{
 		ctx.strokeStyle = 'blue';
@@ -86,8 +66,8 @@ function drawTile(tile)
 	ctx.fillStyle = '#7F3300';
 	ctx.fill();
 	ctx.strokeStyle = ctx.fillStyle;
-	ctx.lineWidth = 2;
-	ctx.stroke();
+	//ctx.lineWidth = 2;
+	//ctx.stroke();
 	if (grid === true)
 	{
 		ctx.strokeStyle = 'blue';
@@ -111,5 +91,24 @@ function drawTile(tile)
 		ctx.lineWidth = 2;
 		ctx.stroke();
 	}
+
+	ctx.beginPath();
+
+	ctx.moveTo(end1.x+.5, end1.y+.5);
+	ctx.lineTo(end2.x+.5, end2.y+.5);
+	ctx.lineTo(end4.x+.5, end4.y+.5);
+	ctx.lineTo(end3.x+.5, end3.y+.5);
+	ctx.lineTo(end1.x+.5, end1.y+.5);
+	ctx.closePath();
+	ctx.fillStyle = 'green';
+	if (tile.z < 3)
+	{
+		ctx.fillStyle = 'blue';
+	}
+	if (tile.z > 50)
+	{
+		ctx.fillStyle = 'gray';
+	}
+	ctx.fill();
 
 }
