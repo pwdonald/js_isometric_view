@@ -1,3 +1,7 @@
+// JavaScript Isometric View Renderer
+// Author: Donald Jones
+// * Feb. 10, 2014: Restructured rendering to help avoid some "seams" between tiles. Also added tolerance paramter to map constructor.
+
 var tilesize = 5;
 var grid = false;
 var randomMap = true;
@@ -8,7 +12,7 @@ window.onload = function() {
 	context.translate(sf.width / 2, sf.height /4);
 	context.scale(1,0.5);
 	context.rotate(45 * Math.PI / 180);
-	var newmap = new map("test",150,150, randomMap);
+	var newmap = new map("test",125,100, randomMap, 15);
 	newmap.generate();
 	newmap.draw();
 };
@@ -57,7 +61,7 @@ function drawTile(tile)
 	//side
 	ctx.beginPath();
 	ctx.moveTo(end2.start_x, end2.start_y);
-	console.log(end2);
+	//console.log(end2);
 	ctx.lineTo(end4.start_x, end4.start_y);
 	ctx.lineTo(end4.x, end4.y);
 	ctx.lineTo(end2.x, end2.y);
