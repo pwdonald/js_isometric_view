@@ -2,7 +2,7 @@
 // Author: Donald Jones
 // * Feb. 10, 2014: Restructured rendering to help avoid some "seams" between tiles. Also added tolerance paramter to map constructor.
 
-var tilesize = 5;
+var tilesize = 10;
 var grid = false;
 var randomMap = true;
 
@@ -12,8 +12,8 @@ window.onload = function() {
 	context.translate(sf.width / 2, sf.height /4);
 	context.scale(1,0.5);
 	context.rotate(45 * Math.PI / 180);
-	var newmap = new map("test",125,100, randomMap, 15);
-	newmap.generate();
+	var newmap = new map("test",50,50, randomMap, 25);
+	newmap.generateRiver();
 	newmap.draw();
 };
 

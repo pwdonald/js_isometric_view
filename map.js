@@ -15,11 +15,62 @@ var map = function(name, width, height, randomMap, toleranceValue){
 	this.width = width;
 	this.height = height;
 	this.random = randomMap;
-	this.tiles = [];
+	this.tiles = new Array(height);
 	this.tolerancevalue = toleranceValue || 25;
+
+	this.generateRiver = function () {
+		var T = 25;
+		for (var i=0; i < this.height; i++)
+		{
+			this.tiles[i] = new Array(width);
+			this.avg_height = 0;
+			for (var j = 0; j < this.width; j++)
+			{
+				var h = Math.floor((Math.random()*T));;
+				if (this.tiles[i][j-1])
+				{
+					//coastal
+					if (this.tiles[i-1])
+					{
+						if (this.tiles[i-1][j].z < 5)
+						{
+							h = 0;
+							this.tiles[i-1][j].z = 0;
+							this.tiles[i-1][j-1].z =0;
+						}
+						else {
+							h = (this.tiles[i-1][j].z + h + this.tiles[i-1][j-1].z) / 3;
+							var heightdiff = this.tiles[i-1][j].z - h;
+							if (h > this.tolerancevalue)
+							{
+								h = Math.round(h - (tolerancevalue / 2));
+							}	
+						}
+					}
+					else
+					{
+						h = (this.tiles[i][j-1].z + h) / 2;	
+					}
+					
+				}
+				var t_type = 'grass';
+				this.tiles[i][j] = new tile(j,i,Math.round(h),t_type);
+			}
+
+		}
+	};
+
+	this.generateCoastal = function () {
+		for (var i = 0; i < this.height; i++)
+		{
+			
+		}
+	};
+
 
 	this.generate = function (){
 		var T = this.tolerancevalue;
+		var baseT = this.tolerancevalue;
 		for (var i=0; i < this.height; i++)
 		{
 			var row = [];
@@ -61,13 +112,33 @@ var map = function(name, width, height, randomMap, toleranceValue){
 						console.log(h);
 						if (previoustile2)
 						{
-							var avg_height = (previoustile1.z + previoustile2.z + h) / 3;
-							h = avg_height;
+							if (T > 1) {
+								var avg_height = (previoustile1.z + previoustile2.z + h) / 3;
+								h = avg_height;
+								T--;
+							} else {
+								this.tiles[j][i-1].z = h;
+								this.tiles[j-1][i].z = h;
+								T++;
+							}
+							
 						}
+					}
+					if (T > baseT)
+					{
+						T--;
+					}
+					else if (T < baseT)
+					{
+						T++;
+					}
+					else
+					{
+						T--;
 					}
 					
 					
-					tmp = new tile(j,i,h,t_type);
+					tmp = new tile(j,i,Math.round(h),t_type);
 				}
 				 
 				if (t_type == 'grass')
