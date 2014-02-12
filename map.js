@@ -29,14 +29,14 @@ var map = function(name, width, height, randomMap, toleranceValue){
 				var h = Math.floor((Math.random()*T));;
 				if (this.tiles[i][j-1])
 				{
-					//coastal
+					//River
 					if (this.tiles[i-1])
 					{
 						if (this.tiles[i-1][j].z < 5)
 						{
-							h = 0;
-							this.tiles[i-1][j].z = 0;
-							this.tiles[i-1][j-1].z =0;
+							h = 2;
+							this.tiles[i-1][j].z = 2;
+							this.tiles[i-1][j-1].z =2;
 						}
 						else {
 							h = (this.tiles[i-1][j].z + h + this.tiles[i-1][j-1].z) / 3;
@@ -63,7 +63,7 @@ var map = function(name, width, height, randomMap, toleranceValue){
 	this.generateCoastal = function () {
 		for (var i = 0; i < this.height; i++)
 		{
-			
+
 		}
 	};
 

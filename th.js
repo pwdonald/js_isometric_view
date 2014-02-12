@@ -98,11 +98,11 @@ function drawTile(tile)
 
 	ctx.beginPath();
 
-	ctx.moveTo(end1.x+.5, end1.y+.5);
-	ctx.lineTo(end2.x+.5, end2.y+.5);
-	ctx.lineTo(end4.x+.5, end4.y+.5);
-	ctx.lineTo(end3.x+.5, end3.y+.5);
-	ctx.lineTo(end1.x+.5, end1.y+.5);
+	ctx.moveTo(end1.x, end1.y);
+	ctx.lineTo(end2.x, end2.y);
+	ctx.lineTo(end4.x, end4.y);
+	ctx.lineTo(end3.x, end3.y);
+	ctx.lineTo(end1.x, end1.y);
 	ctx.closePath();
 	ctx.fillStyle = 'green';
 	if (tile.z < 3)
