@@ -2,7 +2,7 @@
 // Author: Donald Jones
 // * Feb. 10, 2014: Restructured rendering to help avoid some "seams" between tiles. Also added tolerance paramter to map constructor.
 
-var tilesize = 10;
+var tilesize = 15;
 var grid = false;
 var randomMap = true;
 
@@ -14,6 +14,8 @@ window.onload = function() {
 	context.rotate(45 * Math.PI / 180);
 	var newmap = new map("test",50,50, randomMap, 25);
 	newmap.generateRiver();
+	newmap.generateTrees();
+
 	newmap.draw();
 };
 
@@ -97,7 +99,6 @@ function drawTile(tile)
 	}
 
 	ctx.beginPath();
-
 	ctx.moveTo(end1.x, end1.y);
 	ctx.lineTo(end2.x, end2.y);
 	ctx.lineTo(end4.x, end4.y);
@@ -115,4 +116,38 @@ function drawTile(tile)
 	}
 	ctx.fill();
 
+	if (tile.tree)
+	{
+		var start_x = Math.floor((end1.start_x+end4.x)/2);
+		var start_y = Math.floor((end1.start_y+end4.y)/2);
+		var end_x = start_x - tilesize - Math.floor(Math.random()*5);
+		var end_y = start_y - tilesize - Math.floor(Math.random()*5);
+		ctx.beginPath();
+		ctx.moveTo(start_x,start_y);
+		ctx.lineTo(end_x, end_y);
+		ctx.closePath();
+		//ctx.strokeStyle = '#5C4033';
+		ctx.strokeStyle = 'black';
+		ctx.lineWidth = 3;
+		ctx.stroke();
+
+
+		ctx.beginPath();
+		ctx.moveTo(end_x,end_y);
+		ctx.lineTo(end_x + 15 * -Math.cos(Math.PI / 4),end_y + 15 * -Math.sin(Math.PI / 4));
+		ctx.moveTo(end_x,end_y);
+		ctx.lineTo(end_x + 15 * -Math.cos(Math.PI / 6),end_y + 15 * -Math.sin(Math.PI / 6));
+		ctx.moveTo(end_x,end_y);
+		ctx.lineTo(end_x + 15 * -Math.cos(Math.PI / 3),end_y + 15 * -Math.sin(Math.PI / 3));
+		ctx.closePath();
+		ctx.lineWidth = 1;
+		ctx.stroke();
+
+	//	ctx.beginPath();
+//		ctx.arc(end_x, end_y, 15, -1.1 * -Math.cos(Math.PI / 4), 1.9 * -Math.sin(Math.PI / 4), true);
+//		ctx.lineWidth = 1;
+//		ctx.strokeStyle = '#2F4F2F';
+//		ctx.stroke();
+
+	}
 }

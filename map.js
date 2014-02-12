@@ -60,6 +60,23 @@ var map = function(name, width, height, randomMap, toleranceValue){
 		}
 	};
 
+	this.generateTrees = function() {
+		for (var i=0; i < this.height; i++)
+		{
+			for (var j=0; j < this.width; j++)
+			{
+				if (this.tiles[i][j].z > 3)
+				{
+					var r = Math.floor((Math.random()*15));;
+					if (r == 3)
+					{
+						this.tiles[i][j].tree = true;
+					}
+				}
+			}
+		}
+	};
+
 	this.generateCoastal = function () {
 		for (var i = 0; i < this.height; i++)
 		{
