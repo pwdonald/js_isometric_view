@@ -1,6 +1,5 @@
-![Screenshot](/screenshots/Screen Shot 2014-02-06 at 10.12.00 PM.png "Screenshot")
-
-JavaScript Isometric Grid View Generator
+![Screenshot](https://github.com/pwdonald/js_isometric_view/blob/master/screenshots/Screen%20Shot%202014-02-06%20at%2010.12.00%20PM.png)
+# JavaScript Isometric Grid View Generator (randomized heightmap)
 
 
 Author: Donald Jones
